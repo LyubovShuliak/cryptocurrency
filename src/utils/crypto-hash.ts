@@ -1,9 +1,14 @@
 import { createHash } from 'crypto';
-const hexToBinary = require('hex-to-binary');
+
 export const cryptoHash = (...inputs: any) => {
   const hash = createHash('sha256');
 
-  hash.update(inputs.sort().join(' '));
+  hash.update(
+    inputs
+      .map((input: any) => JSON.stringify(input))
+      .sort()
+      .join(' ')
+  );
 
-  return hexToBinary(hash.digest('hex'));
+  return hash.digest('hex');
 };

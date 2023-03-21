@@ -33,7 +33,7 @@ export class Block {
     do {
       nonce++;
       timeStamp = Date.now().toString();
-      hash = cryptoHash(timeStamp, lastHash, data, nonce, difficulty);
+      hash = cryptoHash(timeStamp, data, lastHash, nonce, difficulty);
       difficulty = this.adjustDifficulty({ originalBlock: lastBlock, timeStamp });
     } while (!hexToBinary(hash).startsWith('0'.repeat(lastBlock.difficulty)));
 
@@ -59,7 +59,7 @@ export class Block {
     if (difficulty < 1) {
       return 1;
     }
-    if (difference > MINE_RATE) {
+    if (difference > INITIAL_DATA.MINE_RATE) {
       return difficulty--;
     }
 

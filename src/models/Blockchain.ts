@@ -2,14 +2,16 @@ import { cryptoHash } from '../utils/crypto-hash';
 import { Block } from './Block';
 
 export class Blockchain {
-  static chain: Block[] = [Block.genesis()];
-  constructor() {}
-  static addBlock({ data }: { data: any }) {
+  chain: Block[];
+  constructor() {
+    this.chain = [Block.genesis()];
+  }
+  addBlock({ data }: { data: any }) {
     const newBlock = Block.mineBlock({ data, lastBlock: this.chain[this.chain.length - 1] });
     this.chain.push(newBlock);
   }
 
-  static isValidChain(chain: Block[]) {
+  isValidChain(chain: Block[]) {
     if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) return false;
 
     for (let i = 1; i < chain.length; i++) {
@@ -31,7 +33,7 @@ export class Blockchain {
     return true;
   }
 
-  static replaceChain(chain: Block[]) {
+  replaceChain(chain: Block[]) {
     if (chain.length <= this.chain.length) {
       console.error('The incoming chain must be longer');
       return;

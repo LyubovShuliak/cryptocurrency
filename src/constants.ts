@@ -4,5 +4,5 @@ export const GENESIS_DATA: BlockType = {
   hash: 'hash_one',
   data: [1],
   nonce: 0,
-  difficulty: INITIAL_DIFFICULTY
+  difficulty: INITIAL_DATA.INITIAL_DIFFICULTY
 };

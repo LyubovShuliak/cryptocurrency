@@ -5,7 +5,8 @@ import express from 'express';
 
 import httpContext from 'express-http-context';
 import { nanoid } from 'nanoid';
-import { chainRouter } from './routes/chain.router';
+import { chainRouter } from './routes/chain/chain.router';
+import { PubSub } from './services/PubSub';
 export const app = express();
 
 app.set('trust proxy', 1);
@@ -23,13 +24,7 @@ app.use((req, res, next) => {
   if (req.id) {
     httpContext.set('requestId', req.id);
   }
-  if (req.body.emailAddress) {
-    httpContext.set('email', req.body.emailAddress);
-  }
-  if (!req.body.emailAddress) {
-    httpContext.set('email', 'no email');
-  }
 
   next();
 });
-app.use('/', chainRouter);
+app.use('/api', chainRouter);

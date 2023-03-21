@@ -1,12 +1,16 @@
 import express from 'express';
 
 declare global {
+  declare const enum INITIAL_DATA {
+    INITIAL_DIFFICULTY = 3,
+    MINE_RATE = 1000,
+    STARTING_BALANCE = 1000
+  }
   namespace Express {
     interface Request {
       id: string;
     }
   }
-  export const hexToBinary = require('hex-to-binary');
 
   interface BlockType {
     timeStamp: string;
@@ -21,6 +25,4 @@ declare global {
     lastBlock: BlockType;
     data: any;
   }
-  const MINE_RATE = 1000;
-  const INITIAL_DIFFICULTY = 3;
 }
